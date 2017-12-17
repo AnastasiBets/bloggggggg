@@ -1,0 +1,11 @@
+<%= form_for @photo, url: photos_path, method: :patch do |f|%>
+
+
+<%= render 'photos/form' , f:f %>
+
+<%= @photo.user_id %><br/>
+<%= @photo.category_id %><br/>
+<%= @photo.name %><br/>
+<%= @photo.photo_url %><br/>
+
+<% end %>

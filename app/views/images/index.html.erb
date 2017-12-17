@@ -1,0 +1,18 @@
+<%= link_to "Upload new foto", new_photo_path , class: "btn btn-default"%>
+<%= link_to "Upload multiple image", new_image_path , class: "btn btn-default"%>
+<br>
+<% if @images == [] %>
+	There is no images yet
+<% else %>
+	<% @images.each do |image| %>
+	<%= image_tag image.image.url, width: 200, height: 200 %>
+	<p>User<%= image.user.nickname %></p>
+	<%= link_to "Like", voteforphoto_image_path(image.id) %>
+	(<%= @like[image.id] %>)
+	<p><% if current_user != nil and current_user.id == image.user_id %>
+		<%= link_to "Edit", edit_image_path(image.id) %>
+		<%= link_to "Delete", image_path(image.id), data: {confim: 'Are you sure?'}, method: :delete %>
+	<% end %>
+	</p>
+	<% end %>
+<% end %> 

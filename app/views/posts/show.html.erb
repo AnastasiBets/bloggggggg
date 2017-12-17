@@ -1,0 +1,41 @@
+<div class="center-container">
+	<div class="text-center">
+<h1><%= @post.title %></h1>
+<p>
+	Author:<%= @post.user.nickname %> |
+	Created at:<%= @post.created_at %> |
+	Update at:<%= @post.updated_at %>
+</p>
+<p><%= sanitize(@post.body) %></p>
+
+</div>
+
+
+<%= form_for :postcomment ,url: post_postcomments_path(@post.id), method: :post do |f| %>
+	
+	<% if flash[:notice] %>
+		<div class="notice"><%= flash[:notice] %></div>
+	<% end %>
+
+	<p><%= f.label "Add your comment" %></p>
+	<p><%= f.text_area :comment, cols: 5,rows: 5 %></p>
+	<%= f.submit "Add Comment" %>
+<% end %>	
+
+<% @comment.each do |comment| %>
+<hr>
+<%= image_tag comment.user.avatar.url, width: 30, height: 30 %>
+<p>User <b><%= comment.user.nickname %></b> say: </p>
+<p><%= comment.comment %></p>
+<% if current_user != nil and current_user.id == comment.user_id %>
+		<p>
+		<%= link_to "Edit", edit_post_postcomment_path(@post, comment) %>
+ 		<%= link_to "Delete", [comment.post, comment], data: {confirm: 'Are you sure?'}, method: :delete %>
+
+ 		
+ 		</p>
+	<% end %>
+<hr>
+<% end %>
+</div>
+<%=render 'layouts/rightbar'%>

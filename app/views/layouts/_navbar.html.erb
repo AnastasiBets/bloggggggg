@@ -1,0 +1,31 @@
+<div class="header">
+          <nav class="navbar navbar-default">
+              <div class="agileits-logo">
+                <h1><div class="navbar-brand"><%= link_to "Простір для особистості)" , root_path %></div></h1>
+              </div>
+
+            <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="active"><%= link_to "Home" , root_path %></li>                  
+                  <li><a href="#news" class="scroll">News</a></li>
+                  <li><%= link_to "Gallery", photos_path %></li>
+                  <li><a href="#about" class="scroll">About</a></li>
+                  <% if current_user.nil? %>
+                    <li>
+                      <%= link_to new_user_session_path do %>
+                        <i class="glyphicon glyphicon-user"></i></span> Login
+                        <% end %>
+                    <li>
+                      <% else %>
+                    <li>
+                      <%= link_to destroy_user_session_path, method: :delete do %>
+                        <i class="glyphicon glyphicon-log-out"></i></span> Logout
+                        <% end %>
+                    <li>
+                  <% end %>
+                </ul>
+
+            </div>
+          </nav>
+</div>

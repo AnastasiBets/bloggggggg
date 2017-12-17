@@ -1,0 +1,23 @@
+<div class="center-container">
+<% @posts.each do |post| %>
+ 	<div class="col-md-6 post text-center">
+	<h1><%= link_to post.title , post_path(post.id)%></h1>
+	<p>
+	<%= image_tag post.user.avatar.url, width: 30, height: 30 %>
+		Author:<%= post.user.nickname %> <br>
+		<p><%= sanitize(post.body) %></p>
+		Created at:<%= post.created_at %> <br>
+		Update at:<%= post.updated_at %> <br>
+	</p>
+
+	<% if current_user != nil and current_user.id == post.user_id %>
+		<%= link_to "Edit", edit_post_path(post.id) %>
+	<%= link_to "Delete", post_path(post.id), data: {confirm: 'Are you sure?'}, method: :delete %>
+		<% end %>
+	</div>
+
+<% end %>
+
+</div>
+<%=render 'layouts/rightbar'%> 
+
